@@ -3,4 +3,7 @@ plot
 food-101
 train
 test
+images
+*.hdf5
+*.log
 .vscode
