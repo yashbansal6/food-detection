@@ -3,18 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Food Classification and Calorie Estimation</title>
-  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
-  <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
-  <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
-  <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">  
-  <style>
-    ::placeholder {
-      color:rgb(13, 13, 14);
-      opacity:0.8;
-      font-weight: bold;
-    }
-    </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script>
       $("#file-picker").change(function(){
@@ -36,24 +25,18 @@
   </script>
 </head>
 
-<body style="background-image: url('{{ url_for('static', filename='') }}'); 
-background-repeat:no-repeat;
-background-size:cover;
-height:100vh;
-display:flex;
-">
-  <marquee direction="left" style="color: Red;"><h3>Food Classification and Calorie Estimation</h3></marquee>
-  <div class="login card" style="color: Red;">
-  Uploaded Image: 
-  <br><br>
-  <img src=" {{url_for('send_image', filename=image_name)}}" style="width:300px;height:300px;">
-  <br>
-  {{name}}
-  <br>
-  {{calories}}
-  <br>
-  {{info}}
-  <a style="text-decoration: none; display: block; margin: 20px auto;" class="btn btn-primary btn-block btn-large" href="/" role="button">Predict Another image</a>
+<body style="background-image: url('{{ url_for('static', filename='bg2.jpg') }}'); background-repeat:no-repeat; background-size: cover; background-position: center; ">
+  <div class="login" style="color: green;">
+    <h3>Uploaded Image:</h3> 
+    <br>
+    <img src=" {{url_for('send_image', filename=image_name)}}" style="width:300px;height:300px;">
+    <br>
+    <span style="color: black;">Name of Food Item - </span> {{name}}
+    <br>
+    <span style="color: black;">No. of Calories per 100g - </span> {{calories}}
+    <br>
+    <span style="color: black;">Nutritional Information per 100g- </span> Sugar_g : {{sugar}}, Fiber_g : {{fiber}}, Carbs_g : {{carbs}}, Fat : {{fat}}, Protein_g : {{protein}}, Sodium_mg : {{sodium}}, Potassium_mg : {{potassium}}, Cholesterol_mg : {{cholesterol}}
+    <a style="text-decoration: none; display: block; margin: 20px auto;" class="btn btn-primary btn-block btn-large" href="/" role="button">Predict Another image</a>
   </div>
 </body>
 </html>

@@ -4,7 +4,6 @@ import numpy as np
 from keras.preprocessing import image
 from keras.models import load_model
 from uuid import uuid4
-
 from flask import Flask, request, render_template, send_from_directory
 
 app = Flask(__name__)
@@ -22,17 +21,11 @@ food_list = ['donuts',
  'sushi',
  'waffles']
 
-def predict_class(model, img, show = True):
+def predict_class(model, img):
     pred = model.predict(img)
     index = np.argmax(pred)
     food_list.sort()
     pred_value = food_list[index]
-    if show:
-        plt.imshow(img[0])                           
-        plt.axis('off')
-        plt.title(pred_value)
-        plt.show()
-        print(pred_value)
         
     api_url = 'https://api.calorieninjas.com/v1/nutrition?query='
     query = pred_value.replace("_"," ")
@@ -58,6 +51,7 @@ def upload():
             os.mkdir(target)
     else:
         print("Couldn't create upload directory: {}".format(target))
+        
     print(request.files.getlist("file"))
     for upload in request.files.getlist("file"):
         print(upload)
@@ -75,13 +69,19 @@ def upload():
         img = np.expand_dims(img, axis=0)
         img /= 255.
         
-        prediction = predict_class(model, img, False)
+        prediction = predict_class(model, img)
         name = prediction[0]['name']
         calories = prediction[0]['calories']
-        prediction[0].pop('name')
-        prediction[0].pop('calories')
+        sugar = prediction[0]['sugar_g']
+        fiber = prediction[0]['fiber_g']
+        sodium = prediction[0]['sodium_mg']
+        potassium = prediction[0]['potassium_mg']
+        fat = prediction[0]['fat_total_g']
+        cholesterol = prediction[0]['cholesterol_mg']
+        protein = prediction[0]['protein_g']
+        carbs = prediction[0]['carbohydrates_total_g']
         
-    return render_template("template.html", image_name=filename, name=name, calories=calories, info=prediction)
+    return render_template("template.html", image_name=filename, name=name, calories=calories, sugar=sugar, fiber=fiber, fat=fat, protein=protein, carbs=carbs, sodium=sodium, potassium=potassium, cholesterol=cholesterol)
 
 @app.route('/upload/<filename>')
 
@@ -89,5 +89,5 @@ def send_image(filename):
     return send_from_directory("images", filename)
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True)
 

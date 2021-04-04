@@ -4,6 +4,11 @@ food-101
 train
 test
 images
+Code
 *.hdf5
 *.log
+*.zip
 .vscode
+food_detection_colab.ipynb
+food_detection_output.ipynb
+*.webp
