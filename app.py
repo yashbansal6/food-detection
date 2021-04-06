@@ -21,6 +21,7 @@ food_list = ['donuts',
  'sushi',
  'waffles']
 
+# prediction function
 def predict_class(model, img):
     pred = model.predict(img)
     index = np.argmax(pred)
@@ -37,11 +38,13 @@ def predict_class(model, img):
     else:
         print("Error:", response.status_code, response.text)
 
+# rendering the landing page (index.html)
 @app.route("/")
 
 def index():
     return render_template("index.html")
 
+# rendering the result page (template.html)
 @app.route("/upload", methods=["POST"])
 
 def upload():
@@ -83,6 +86,7 @@ def upload():
         
     return render_template("template.html", image_name=filename, name=name, calories=calories, sugar=sugar, fiber=fiber, fat=fat, protein=protein, carbs=carbs, sodium=sodium, potassium=potassium, cholesterol=cholesterol)
 
+# upload image 
 @app.route('/upload/<filename>')
 
 def send_image(filename):
